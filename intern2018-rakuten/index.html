@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+	<body>
+		<form action = "/post" method = "POST">
+			<p> 傷病情報入力欄</p>
+			<p><input type = "text" name = "text" value ="{{title}}"/>
+					<input type = "submit" value = "検索" />
+					<input type = "button" value = "クリア" onClick="document.location='/';">
+		</form>
+
+		
+		{% if result_2 >= 1 %}
+		<p>検索結果{{result_2}}件</P>
+		<div style = "height:500px;width:1000px;overflow-y:auto;">
+			<table border="1">
+				<thead>
+				<tr>
+					<th>傷病名</th>
+					<th>傷病名カナ</th>
+					<th>ICD10コード①　</th>
+					<th>ICD10コード②　</th>	
+				</tr>
+				</thead>
+				<tbody>
+						{% for i in range(result_2)%} 
+						<tr>
+							<td>{{result_1[i][0]}}</td>
+							<td>{{result_1[i][1]}}</td>
+							<td>{{result_1[i][2]}}</td>
+							<td>{% if not result_1[i][3] %}
+										{{"--------"}}
+									{% else %}
+										{{result_1[i][3]}}
+									{% endif %}
+							</td>
+									</td>
+						</tr>
+						{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% elif result_2 == 0 %}
+			検索結果は0件です。
+		{% elif result_2 == -2 %}
+			傷病名を入力してください。
+		{% endif %}
+	</body>	
+
+</html>
